@@ -1,0 +1,77 @@
+{
+  "notify_on_first_seen": false,
+  "cards": [
+    {
+      "id": "ST30-001",
+      "sources": {
+        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=ST30-001",
+        "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=ST30-001",
+        "tcgplayer": "PASTE_TCGPLAYER_ST30-001_URL"
+      }
+    },
+    {
+      "id": "ST21-001",
+      "sources": {
+        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=ST21-001",
+        "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=ST21-001",
+        "tcgplayer": "https://www.tcgplayer.com/product/615565/one-piece-card-game-st-21-starter-deck-21-ex-gear-5-monkeydluffy-001-parallel?page=1&Language=all"
+      }
+    },
+    {
+      "id": "ST15-005",
+      "sources": {
+        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=ST15-005",
+        "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=ST15-005",
+        "tcgplayer": "PASTE_TCGPLAYER_ST15-005_URL"
+      }
+    },
+    {
+      "id": "P-043",
+      "sources": {
+        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=P-043",
+        "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=P-043",
+        "tcgplayer": "PASTE_TCGPLAYER_P-043_URL"
+      }
+    },
+    {
+      "id": "ST31-004",
+      "sources": {
+        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=ST31-004",
+        "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=ST31-004",
+        "tcgplayer": "PASTE_TCGPLAYER_ST31-004_URL"
+      }
+    },
+    {
+      "id": "EB03-053",
+      "sources": {
+        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=EB03-053",
+        "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=EB03-053",
+        "tcgplayer": "PASTE_TCGPLAYER_EB03-053_URL"
+      }
+    },
+    {
+      "id": "EB03-055",
+      "sources": {
+        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=EB03-055",
+        "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=EB03-055",
+        "tcgplayer": "PASTE_TCGPLAYER_EB03-055_URL"
+      }
+    },
+    {
+      "id": "EB03-026",
+      "sources": {
+        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=EB03-026",
+        "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=EB03-026",
+        "tcgplayer": "PASTE_TCGPLAYER_EB03-026_URL"
+      }
+    },
+    {
+      "id": "OP06-101",
+      "sources": {
+        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=OP06-101",
+        "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=OP06-101",
+        "tcgplayer": "PASTE_TCGPLAYER_OP06-101_URL"
+      }
+    }
+  ]
+}

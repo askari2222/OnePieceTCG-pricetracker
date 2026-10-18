@@ -3,6 +3,7 @@
   "cards": [
     {
       "id": "ST30-001",
+      "snkrdunk_filter": "Luffy & Ace L",
       "sources": {
         "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=ST30-001",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=ST30-001",
@@ -11,6 +12,7 @@
     },
     {
       "id": "ST21-001",
+      "snkrdunk_filter": "Gear 5",
       "sources": {
         "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=ST21-001",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=ST21-001",
@@ -19,6 +21,7 @@
     },
     {
       "id": "ST15-005",
+      "snkrdunk_filter": "SR-SPC",
       "sources": {
         "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=ST15-005",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=ST15-005",
@@ -27,6 +30,7 @@
     },
     {
       "id": "P-043",
+      "snkrdunk_filter": "Monkey D Luffy",
       "sources": {
         "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=P-043",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=P-043",
@@ -35,6 +39,7 @@
     },
     {
       "id": "ST31-004",
+      "snkrdunk_filter": "SR-SPC",
       "sources": {
         "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=ST31-004",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=ST31-004",
@@ -43,6 +48,7 @@
     },
     {
       "id": "EB03-053",
+      "snkrdunk_filter": "SR-SPC",
       "sources": {
         "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=EB03-053",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=EB03-053",
@@ -51,6 +57,7 @@
     },
     {
       "id": "EB03-055",
+      "snkrdunk_filter": "SR-SPC",
       "sources": {
         "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=EB03-055",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=EB03-055",
@@ -59,6 +66,7 @@
     },
     {
       "id": "EB03-026",
+      "snkrdunk_filter": "SR-SPC",
       "sources": {
         "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=EB03-026",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=EB03-026",
@@ -67,6 +75,7 @@
     },
     {
       "id": "OP06-101",
+      "snkrdunk_filter": "R-SPC",
       "sources": {
         "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=OP06-101",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=OP06-101",

@@ -40,7 +40,13 @@ def parse_money(text):
 def yuyu_tei_opc(url, card_number):
     """Search Yuyu-tei's One Piece section and return the lowest price
     for the given card number (e.g. 'ST21-001'). Returns (amount, 'JPY') or None."""
-    r = requests.get(url, headers=HEADERS, timeout=30)
+    h = dict(HEADERS)
+    h.update({
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "ja-JP,ja;q=0.9,en;q=0.8",
+        "Referer": "https://yuyu-tei.jp/",
+    })
+    r = requests.get(url, headers=h, timeout=30)
     r.raise_for_status()
     soup = BeautifulSoup(r.text, "html.parser")
     best = None

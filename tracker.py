@@ -75,11 +75,12 @@ SNK = "https://snkrdunk.com/en"
 
 
 def snkrdunk_psa10(url, name_filter=None):
-    """PSA 10 lowest price via SNKRDUNK's JSON API (the site is JS-rendered).
-    `url` may be a product page (/trading-cards/<id>) or a search URL
-    (?keyword=...). For searches, [EN] printings are skipped, and
-    `name_filter` (substring, e.g. "Gear 5" or "L-P") narrows to ONE card.
-    Only the psa_10 entry is used; other grades are never substituted."""
+    """PSA 10 price via SNKRDUNK's JSON API.
+    Priority 1: lowest in-stock PSA 10 listing from min-prices (listingCount > 0).
+    Priority 2: lowest available (not sold) PSA 10 used listing.
+    Priority 3: most recent PSA 10 sold listing from used-listings (isSold=True).
+    If none available, returns None and the previous price is kept.
+    Returns (amount, 'JPY') or None."""
     m = re.search(r"/trading-cards/(\d+)", url)
     if m:
         pid = m.group(1)
@@ -100,14 +101,45 @@ def snkrdunk_psa10(url, name_filter=None):
             raise ValueError(f"search matched {len(items)} JP cards, need exactly 1 "
                              f"(set snkrdunk_filter or use a product URL). Candidates: {opts}")
         pid = items[0]["id"]
-    r = requests.get(f"{SNK}/v2/products/SW---{pid}/min-prices", headers=HEADERS, timeout=30)
+    code = f"SW---{pid}"
+
+    # 1) Lowest in-stock PSA 10 from min-prices
+    r = requests.get(f"{SNK}/v2/products/{code}/min-prices", headers=HEADERS, timeout=30)
     r.raise_for_status()
     for e in r.json().get("entries", []):
         if e.get("id") == "psa_10":
             mp = e.get("minPrice") or {}
-            if mp.get("value") is None:
-                return None  # no PSA10 listed right now
-            return float(mp["value"]), mp.get("currencyCode", "JPY")
+            listing_count = e.get("listingCount", "0")
+            try:
+                lc = int(listing_count)
+            except (ValueError, TypeError):
+                lc = 0
+            if lc > 0 and mp.get("value") is not None:
+                return float(mp["value"]), "JPY"
+            break  # PSA 10 exists but nothing listed right now; check used-listings
+
+    # 2 & 3) Used listings: in-stock (isSold=False) first, then last sold (isSold=True)
+    r = requests.get(f"{SNK}/v2/products/{code}/used-listings", headers=HEADERS, timeout=30)
+    r.raise_for_status()
+    listings = r.json().get("usedListings", [])
+    in_stock = []
+    sold = []
+    for listing in listings:
+        if listing.get("conditionKey") != "psa_10":
+            continue
+        price = listing.get("price", {})
+        if price.get("value") is None:
+            continue
+        val = float(price["value"])
+        if listing.get("isSold"):
+            sold.append(val)
+        else:
+            in_stock.append(val)
+
+    if in_stock:
+        return min(in_stock), "JPY"
+    if sold:
+        return sold[0], "JPY"  # first sold item (API returns newest first)
     return None
 
 

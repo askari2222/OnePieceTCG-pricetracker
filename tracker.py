@@ -76,36 +76,47 @@ SNK = "https://snkrdunk.com/en"
 
 def snkrdunk_psa10(url, name_filter=None):
     """PSA 10 price via SNKRDUNK's JSON API.
-    Priority 1: lowest in-stock PSA 10 listing from min-prices (listingCount > 0).
-    Priority 2: lowest available (not sold) PSA 10 used listing.
-    Priority 3: most recent PSA 10 sold listing from used-listings (isSold=True).
-    If none available, returns None and the previous price is kept.
-    Returns (amount, 'JPY') or None."""
+    Searches for the card, then checks each matching printing until one
+    with PSA 10 data (in-stock listing or last sold) is found.
+    Returns (amount, 'JPY') or None if no PSA 10 data exists for any match."""
     m = re.search(r"/trading-cards/(\d+)", url)
     if m:
+        # Direct product URL — check just this one
         pid = m.group(1)
-    else:
-        kw = re.search(r"keyword=([^&]+)", url)
-        if not kw:
-            raise ValueError("snkrdunk url must be a /trading-cards/<id> or search?keyword= URL")
-        r = requests.get(f"{SNK}/v1/search", headers=HEADERS, timeout=30,
-                         params={"keyword": requests.utils.unquote(kw.group(1)),
-                                 "page": 1, "perPage": 40})
-        r.raise_for_status()
-        items = [i for i in r.json().get("streetwears", [])
-                 if i.get("isTradingCard") and "[EN]" not in i["name"]]
-        if name_filter:
-            items = [i for i in items if name_filter.lower() in i["name"].lower()]
-        if len(items) != 1:
-            opts = "; ".join(f"{i['id']}={i['name']}" for i in items) or "none"
-            raise ValueError(f"search matched {len(items)} JP cards, need exactly 1 "
-                             f"(set snkrdunk_filter or use a product URL). Candidates: {opts}")
-        pid = items[0]["id"]
-    code = f"SW---{pid}"
-
-    # 1) Lowest in-stock PSA 10 from min-prices
-    r = requests.get(f"{SNK}/v2/products/{code}/min-prices", headers=HEADERS, timeout=30)
+        return _snkrdunk_pid_psa10(pid)
+    kw = re.search(r"keyword=([^&]+)", url)
+    if not kw:
+        raise ValueError("snkrdunk url must be a /trading-cards/<id> or search?keyword= URL")
+    r = requests.get(f"{SNK}/v1/search", headers=HEADERS, timeout=30,
+                     params={"keyword": requests.utils.unquote(kw.group(1)),
+                             "page": 1, "perPage": 40})
     r.raise_for_status()
+    items = [i for i in r.json().get("streetwears", [])
+             if i.get("isTradingCard") and "[EN]" not in i["name"]]
+    if name_filter:
+        items = [i for i in items if name_filter.lower() in i["name"].lower()]
+    if not items:
+        raise ValueError("no JP trading cards found for this search")
+    # Try each matching printing until one has PSA 10 data
+    for item in items:
+        result = _snkrdunk_pid_psa10(item["id"])
+        if result is not None:
+            return result
+    return None  # none of the matches have PSA 10 data
+
+
+def _snkrdunk_pid_psa10(pid):
+    """Check a single SNKRDUNK product ID for PSA 10 data.
+    Priority 1: in-stock PSA 10 from min-prices (listingCount > 0).
+    Priority 2: lowest available (not sold) PSA 10 used listing.
+    Priority 3: most recent PSA 10 sold listing.
+    Returns (amount, 'JPY') or None."""
+    code = f"SW---{pid}"
+    try:
+        r = requests.get(f"{SNK}/v2/products/{code}/min-prices", headers=HEADERS, timeout=30)
+        r.raise_for_status()
+    except Exception:
+        return None
     for e in r.json().get("entries", []):
         if e.get("id") == "psa_10":
             mp = e.get("minPrice") or {}
@@ -116,11 +127,13 @@ def snkrdunk_psa10(url, name_filter=None):
                 lc = 0
             if lc > 0 and mp.get("value") is not None:
                 return float(mp["value"]), "JPY"
-            break  # PSA 10 exists but nothing listed right now; check used-listings
+            break  # PSA 10 entry exists but nothing listed; check used-listings
 
-    # 2 & 3) Used listings: in-stock (isSold=False) first, then last sold (isSold=True)
-    r = requests.get(f"{SNK}/v2/products/{code}/used-listings", headers=HEADERS, timeout=30)
-    r.raise_for_status()
+    try:
+        r = requests.get(f"{SNK}/v2/products/{code}/used-listings", headers=HEADERS, timeout=30)
+        r.raise_for_status()
+    except Exception:
+        return None
     listings = r.json().get("usedListings", [])
     in_stock = []
     sold = []
@@ -139,7 +152,7 @@ def snkrdunk_psa10(url, name_filter=None):
     if in_stock:
         return min(in_stock), "JPY"
     if sold:
-        return sold[0], "JPY"  # first sold item (API returns newest first)
+        return sold[0], "JPY"  # API returns newest first
     return None
 
 

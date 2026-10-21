@@ -21,9 +21,8 @@
     },
     {
       "id": "ST15-005",
-      "snkrdunk_filter": "SR-SPC",
       "sources": {
-        "snkrdunk": "https://snkrdunk.com/en/search/result?keyword=ST15-005",
+        "snkrdunk": "https://snkrdunk.com/en/trading-cards/822583?slide=right&query_id=5e2fce36-eb61-4585-bb79-21464b2a03d7",
         "yuyu-tei": "https://yuyu-tei.jp/sell/opc/s/search?search_word=ST15-005",
         "tcgplayer": "PASTE_TCGPLAYER_ST15-005_URL"
       }

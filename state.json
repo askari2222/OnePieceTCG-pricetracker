@@ -2,7 +2,7 @@
   "ST21-001|tcgplayer": {
     "price": 55.0,
     "currency": "USD",
-    "updated": 1793534323
+    "updated": 1793555617
   },
   "ST15-005|snkrdunk": {
     "price": 178.0,
@@ -10,14 +10,14 @@
     "updated": 1792588030
   },
   "P-043|snkrdunk": {
-    "price": 290.0,
+    "price": 58.0,
     "currency": "JPY",
-    "updated": 1793534334
+    "updated": 1793555627
   },
   "ST31-004|snkrdunk": {
     "price": 58.0,
     "currency": "JPY",
-    "updated": 1793534339
+    "updated": 1793555632
   },
   "EB03-053|snkrdunk": {
     "price": 668.0,
@@ -37,11 +37,11 @@
   "OP06-101|snkrdunk": {
     "price": 59.0,
     "currency": "JPY",
-    "updated": 1793534354
+    "updated": 1793555646
   },
   "ST21-001|snkrdunk": {
     "price": 68.0,
     "currency": "JPY",
-    "updated": 1793534320
+    "updated": 1793555615
   }
 }
